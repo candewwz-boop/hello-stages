@@ -4,7 +4,7 @@ const { URL } = require("node:url");
 const PORT = Number(process.env.PORT || 3000);
 const STAGE = process.env.APP_STAGE || "local";
 const VERSION = process.env.APP_VERSION || "0.1.0";
-const PROJECT_NAME = "Hello Stages base";
+const PROJECT_NAME = "Hello Stages con información";
 
 function sendJson(res, status, data) {
   res.writeHead(status, { "Content-Type": "application/json; charset=utf-8" });
@@ -20,6 +20,16 @@ function handler(req, res) {
       mensaje: "Hello World",
       stage: STAGE,
       version: VERSION
+    });
+  }
+
+  if (url.pathname === "/api/info") {
+    return sendJson(res, 200, {
+      feature: "informacion-entorno",
+      proyecto: PROJECT_NAME,
+      stage: STAGE,
+      version: VERSION,
+      node: process.version
     });
   }
 
